@@ -43,9 +43,9 @@ find "$SOURCE_DIR" -regextype egrep -regex '.*.(jpg|JPG|mp4|MP4)' -print0 | whil
 	echo -n "$SRC -> $TARGET  .."
 
 	if [[ $SRC =~ [jJ][pP][gG]$ ]]; then
-		convert "$SRC" -resize 1900x -quality 70 "$TARGET"
+		convert "$SRC" -resize "1900x1900>" -quality 70 "$TARGET"
 	else
-		ffmpeg -i "$SRC" -strict experimental -s 1280x720 -crf 30 -loglevel error "$TARGET" </dev/null
+		ffmpeg -i "$SRC" -strict experimental -vf scale=w=1280:h=1280:force_original_aspect_ratio=decrease -crf 30 -loglevel error "$TARGET" </dev/null
 	fi
 	if ! [ -e "$TARGET" ]; then
 		echo -n "  Last effort: Copying manually.. "
