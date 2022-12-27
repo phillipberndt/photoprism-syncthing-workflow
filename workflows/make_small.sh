@@ -58,5 +58,5 @@ find "$SOURCE_DIR" -regextype egrep -regex '.*.(jpg|JPG|mp4|MP4)' -print0 | whil
 done
 
 find "$TARGET_DIR" -depth -type d -print0 | while read -d '' -r DN; do
-	touch -d "@$(find "$DN" -printf '%T@\n' | sort -nr | head -n1)" "$DN"
+	touch -d "@$(find "$DN" -printf '%T@\n' | sort -nr | head -n2 | tail -n1)" "$DN"
 done
